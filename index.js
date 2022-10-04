@@ -11,7 +11,11 @@ app.set('views', './views');
 
 // * CARPETAS PUBLICAS
 
-app.set(express.static('public'));
+// app.set(express.static('public'));
+
+// ? Recordar
+
+app.use(express.static('public'));
 
 //Routing
 
