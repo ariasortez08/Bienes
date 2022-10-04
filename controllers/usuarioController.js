@@ -16,11 +16,45 @@ const formularioRegistro = (req, res) => {
 };
 
 const registrar = async (req, res) => {
-  // * ! SIEMPRE QUE VAMOPS A LEER SE UTILIZA EL BODY *
-  /*  console.log('Registrando');
+  // * ! SIEMPRE QUE VAMOS A LEER SE UTILIZA EL BODY *
 
-  console.log(req.body); */
+  // ! VAIDACION
 
+  await check('nombre')
+    .notEmpty()
+    .withMessage('Nombre no puede estar vacio')
+    .run(req);
+
+  await check('email')
+    .isEmail()
+    .withMessage('Por favor introduce un e-mail')
+    .run(req);
+
+  await check('password')
+    .isLength({ min: 6 })
+    .withMessage('El password debe ser de al menos 6 caracteres')
+    .run(req);
+
+  await check('rep_pass')
+    .equals(req.body.password)
+    .withMessage('Las contrasenas no son iguales')
+    .run(req);
+
+  // ! DEVUELVE UN ARRAY CON LOS ERRORES
+  let resultado = validationResult(req);
+
+  //Verificar que el resultado este vacio
+
+  if (!resultado.isEmpty()) {
+    return res.render('auth/registro', {
+      pagina: 'Registro',
+
+      // Reibimos un arrglo de errores el cual podemos pasarlo al PUG File
+      errores: resultado.array(),
+    });
+  }
+
+  // res.json(resultado.array());
   const usuario = await Usuario.create(req.body);
 
   res.json(usuario);
