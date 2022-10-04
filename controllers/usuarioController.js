@@ -1,7 +1,5 @@
 const formularioLogin = (req, res) => {
-  res.render('auth/login', {
-    autenticado: true,
-  });
+  res.render('auth/login', {});
 };
 
 const formularioRegistro = (req, res) => {
