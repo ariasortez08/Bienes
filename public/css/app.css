@@ -514,8 +514,14 @@ video {
 .mt-2 {
   margin-top: 0.5rem;
 }
+.ml-2 {
+  margin-left: 0.5rem;
+}
 .block {
   display: block;
+}
+.flex {
+  display: flex;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -558,6 +564,9 @@ video {
 }
 .justify-center {
   justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
 }
 .space-y-5 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;

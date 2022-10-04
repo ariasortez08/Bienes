@@ -12,4 +12,11 @@ const formularioRegistro = (req, res) => {
   });
 };
 
-export { formularioLogin, formularioRegistro };
+const formularioResetPassword = (req, res) => {
+  // ? res.render('carpetadeview/nombrearchivopug')
+  res.render('auth/forgotpass', {
+    pagina: 'Recuperar Contraseña',
+    top: 'Cambiar Contraseña',
+  });
+};
+export { formularioLogin, formularioRegistro, formularioResetPassword };

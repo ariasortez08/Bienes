@@ -7,19 +7,23 @@ block contenido
     h2.text-center.text-2xl.font-bold=top
 
     div.mt-8.mx-auto.max-w-md
-        .bg-white.py-8.px-4.shadow
+        .bg-white.py-8.px-4.shadow.rounded-md
             form.space-y-5
                 div
-                    label.block.text-sm.uppercase.text-gray-400.mb-2.font-bold(for="nombre") Nombre
+                    label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="nombre") Nombre
                     input#nombre.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Nombre" type="text" name="nombre")
                 div
-                    label.block.text-sm.uppercase.text-gray-400.mb-2.font-bold(for="email") Email
+                    label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="email") Email
                     input#email.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Correo Electronico" type="email" name="email")
                 div
-                    label.block.text-sm.uppercase.text-gray-400.mb-2.font-bold(for="pass") Password
+                    label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="pass") Password
                     input#pass.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Contrasena" type="password" name="pass")
                 div
-                    label.block.text-sm.uppercase.text-gray-400.mb-2.font-bold(for="rep_pass") Repetir Password
-                    input#rep_pass.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Repetir Contrasena" type="password" name="rep_pass")
-                div
+                    label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="rep_pass") Repetir Password
+                    input#rep_pass.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Repetir Contraseña" type="password" name="rep_pass")
+                div.text-center
                     input(class="content-center w-1/2 bg-indigo-400 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-lg" type="submit" value="Crear Cuenta")
+                div.flex.items-center.justify-between 
+                    a.text-gray-500(href="/auth/login") ¿Ya tienes cuenta? Inicia Sesion
+                    a.text-gray-500(href="/auth/resetpass") Olvide mi contraseña
+                
