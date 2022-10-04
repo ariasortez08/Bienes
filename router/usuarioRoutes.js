@@ -3,6 +3,7 @@ import {
   formularioLogin,
   formularioRegistro,
   formularioResetPassword,
+  registrar,
 } from '../controllers/usuarioController.js';
 
 const router = express.Router();
@@ -12,6 +13,8 @@ const router = express.Router();
 router.get('/login', formularioLogin);
 
 router.get('/registro', formularioRegistro);
+router.post('/registro', registrar);
+
 router.get('/resetpass', formularioResetPassword);
 
 export default router;
