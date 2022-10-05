@@ -51,13 +51,53 @@ const registrar = async (req, res) => {
 
       // Reibimos un arrglo de errores el cual podemos pasarlo al PUG File
       errores: resultado.array(),
+
+      usuario: {
+        nombre: req.body.nombre,
+        email: req.body.email,
+      },
     });
   }
 
-  // res.json(resultado.array());
-  const usuario = await Usuario.create(req.body);
+  // ! VERIFICAR USUARIO REPETIDO
 
-  res.json(usuario);
+  // Extraer los datos
+
+  const { nombre, email, password } = req.body;
+
+  const existeUsuario = await Usuario.findOne({
+    where: { email },
+  });
+
+  if (existeUsuario) {
+    return res.render('auth/registro', {
+      pagina: 'Registro',
+
+      // Reibimos un arrglo de errores el cual podemos pasarlo al PUG File
+      errores: [{ msg: 'El usuario ya esta registrado' }],
+
+      usuario: {
+        nombre: req.body.nombre,
+        email: req.body.email,
+      },
+    });
+  }
+
+  console.log(existeUsuario);
+
+  // res.json(resultado.array());
+  // const usuario = await Usuario.create(req.body);
+
+  // res.json(usuario);
+
+  // ? ALMACENAR UN USUARIO
+
+  await Usuario.create({
+    nombre,
+    email,
+    password,
+    token: 123,
+  });
 };
 
 const formularioResetPassword = (req, res) => {
