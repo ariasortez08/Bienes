@@ -1,5 +1,7 @@
 import { check, validationResult } from 'express-validator';
 import Usuario from '../models/Usuario.js';
+import { generarId } from '../helpers/tokens.js';
+import { emailRegistro } from '../helpers/emails.js';
 
 const formularioLogin = (req, res) => {
   res.render('auth/login', {
@@ -9,6 +11,7 @@ const formularioLogin = (req, res) => {
 };
 
 const formularioRegistro = (req, res) => {
+  console.log(req.csrfToken());
   res.render('auth/registro', {
     pagina: 'Registro',
     top: 'Registrar Usuario',
@@ -85,21 +88,65 @@ const registrar = async (req, res) => {
 
   console.log(existeUsuario);
 
-  // res.json(resultado.array());
-  // const usuario = await Usuario.create(req.body);
-
-  // res.json(usuario);
-
   // ? ALMACENAR UN USUARIO
 
-  await Usuario.create({
+  const usuario = await Usuario.create({
     nombre,
     email,
     password,
-    token: 123,
+    token: generarId(),
+  });
+
+  // ENVIA CORROE DE CONFIRMACION
+
+  // const registro = { nombre, email } = usuario;
+
+  emailRegistro({
+    nombre: usuario.nombre,
+    email: usuario.email,
+    token: usuario.token,
+  });
+
+  // ! Mostrar mensaje de confirmacion
+
+  res.render('templates/mensaje', {
+    pagina: 'Confirmacion',
+    mensaje: 'Hemos enviado un mensaje de confirmacion, haz click en el enlace',
+    top: 'Cuenta Creada Correctamente',
   });
 };
 
+// Funcion que comprueba una cuenta
+
+const comprobar = async (req, res) => {
+  const { token } = req.params;
+
+  // ? Verificamos si el token es valido
+  const usuario = await Usuario.findOne({ where: { token } });
+
+  if (!usuario) {
+    return res.render('auth/confirmar-cuenta', {
+      pagina: 'Error',
+      mensaje: 'Hubo un error al confirmar tu cuenta',
+      error: true,
+      top: 'Error al confirmar tu cuenta',
+    });
+  }
+
+  // Confirmar la ceunta
+
+  usuario.token = null;
+
+  usuario.confirmado = true;
+
+  await usuario.save();
+
+  res.render('auth/confirmar-cuenta', {
+    pagina: 'Confirmation',
+    mensaje: 'La cuenta se confirmo correctamente',
+    top: 'Bienvenido a tu nueva cuenta',
+  });
+};
 const formularioResetPassword = (req, res) => {
   // ? res.render('carpetadeview/nombrearchivopug')
   res.render('auth/forgotpass', {
@@ -111,5 +158,6 @@ export {
   formularioLogin,
   registrar,
   formularioRegistro,
+  comprobar,
   formularioResetPassword,
 };

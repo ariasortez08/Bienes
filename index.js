@@ -1,4 +1,6 @@
 import express from 'express';
+import csrf from 'csurf';
+import cookieParser from 'cookie-parser';
 import usuarioRoutes from './router/usuarioRoutes.js';
 import db from './config/db.js';
 
@@ -14,6 +16,14 @@ try {
 } catch (error) {
   console.log(error);
 }
+
+// ! HABILITAMOS COOKIE PARSES
+
+app.use(cookieParser());
+
+// ! HABILITAMOS EL CSURF
+
+// app.use(csrf({ cookie: true }));
 
 // ! Habilitar la lectura de datos de formulario
 
@@ -38,7 +48,7 @@ app.use('/auth', usuarioRoutes);
 
 //Definimos el puerto
 
-const port = 4000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`El servidor esta en el puerto ${port}`);

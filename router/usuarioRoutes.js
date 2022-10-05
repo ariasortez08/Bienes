@@ -4,6 +4,7 @@ import {
   formularioRegistro,
   formularioResetPassword,
   registrar,
+  comprobar,
 } from '../controllers/usuarioController.js';
 
 const router = express.Router();
@@ -16,5 +17,7 @@ router.get('/registro', formularioRegistro);
 router.post('/registro', registrar);
 
 router.get('/resetpass', formularioResetPassword);
+
+router.get('/confirmar/:token', comprobar);
 
 export default router;
