@@ -23,7 +23,7 @@ app.use(cookieParser());
 
 // ! HABILITAMOS EL CSURF
 
-// app.use(csrf({ cookie: true }));
+app.use(csrf({ cookie: true }));
 
 // ! Habilitar la lectura de datos de formulario
 

@@ -11,11 +11,13 @@ const formularioLogin = (req, res) => {
 };
 
 const formularioRegistro = (req, res) => {
-  console.log(req.csrfToken());
-  res.render('auth/registro', {
+  console.log('aqui toy');
+  let algo = {
+    csrfToken: req.csrfToken(),
     pagina: 'Registro',
     top: 'Registrar Usuario',
-  });
+  };
+  res.render('auth/registro', algo);
 };
 
 const registrar = async (req, res) => {
