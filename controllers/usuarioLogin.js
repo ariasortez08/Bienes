@@ -1,6 +1,7 @@
 import { check, validationResult } from 'express-validator';
+import { generarJWT } from '../helpers/tokens.js';
+
 import Usuario from '../models/Usuario.js';
-import { generarId } from '../helpers/tokens.js';
 
 const formularioLogin = (req, res) => {
   res.render('auth/login', {
@@ -57,6 +58,23 @@ const autenticar = async (req, res) => {
       errores: [{ msg: 'El usuario no esta confirmado' }],
     });
   }
+
+  // REVISAMOS LA PASSWORD
+
+  /* METODOS PERSONALIZADOS */
+
+  if (!usuario.verificarPassword(password)) {
+    return res.render('auth/login', {
+      pagina: 'Login',
+
+      // Reibimos un arrglo de errores el cual podemos pasarlo al PUG File
+      errores: [{ msg: 'La contraseña es incorrecta' }],
+    });
+  }
+
+  // AUTENTICAMOS AL USUARIO
+  const token = generarJWT(usuario.id);
+  console.log(token);
 };
 
 export { formularioLogin, autenticar };
