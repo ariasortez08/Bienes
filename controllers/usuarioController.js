@@ -12,12 +12,10 @@ const formularioLogin = (req, res) => {
 
 const formularioRegistro = (req, res) => {
   console.log('aqui toy');
-  let algo = {
-    csrfToken: req.csrfToken(),
+  res.render('auth/registro', {
     pagina: 'Registro',
     top: 'Registrar Usuario',
-  };
-  res.render('auth/registro', algo);
+  });
 };
 
 const registrar = async (req, res) => {
@@ -113,6 +111,7 @@ const registrar = async (req, res) => {
 
   res.render('templates/mensaje', {
     pagina: 'Confirmacion',
+
     mensaje: 'Hemos enviado un mensaje de confirmacion, haz click en el enlace',
     top: 'Cuenta Creada Correctamente',
   });
