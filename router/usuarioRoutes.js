@@ -3,8 +3,11 @@ import {
   formularioLogin,
   formularioRegistro,
   formularioResetPassword,
+  resetPassword,
   registrar,
   comprobar,
+  comprobarToken,
+  nuevoPassword,
 } from '../controllers/usuarioController.js';
 
 const router = express.Router();
@@ -17,6 +20,12 @@ router.get('/registro', formularioRegistro);
 router.post('/registro', registrar);
 
 router.get('/resetpass', formularioResetPassword);
+router.post('/resetpass', resetPassword);
+
+// Almacenar nueva password
+
+router.get('/resetpass/:token', comprobarToken);
+router.post('/resetpass/:token', nuevoPassword);
 
 router.get('/confirmar/:token', comprobar);
 

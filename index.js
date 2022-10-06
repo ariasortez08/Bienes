@@ -1,5 +1,4 @@
 import express from 'express';
-import csrf from 'csurf';
 import cookieParser from 'cookie-parser';
 import usuarioRoutes from './router/usuarioRoutes.js';
 import db from './config/db.js';
@@ -22,8 +21,6 @@ try {
 app.use(cookieParser());
 
 // ! HABILITAMOS EL CSURF
-
-app.use(csrf({ cookie: true }));
 
 // ! Habilitar la lectura de datos de formulario
 

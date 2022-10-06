@@ -38,4 +38,39 @@ const emailRegistro = async (datos) => {
   });
 };
 
-export { emailRegistro };
+const emailOlvidePassword = async (datos) => {
+  const transport = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  const { nombre, email, token } = datos;
+
+  // ENVIAR EL CORREO
+
+  await transport.sendMail({
+    from: 'Bienesraices.com',
+    to: email,
+    subject: 'Restablecer Contrasena',
+    text: 'Sigue las instrucciones para cambiar la contrasena',
+    html: `<p> Hola ${nombre}, </p>
+
+   <p> Has solicitado un cambio de contrasena.</p>
+
+    <p>Por favor haz click en el siguiente enlace para cambiar tu contrasena:
+
+    <a href="${process.env.BACKEND_URL}:${
+      process.env.PORT ?? 3000
+    }/auth/resetpass/${token}">Restablecer Contrasena</a></p>
+
+    <p> Si no solicitaste el cambio, ignora el mensaje </p>
+    
+    `,
+  });
+};
+
+export { emailRegistro, emailOlvidePassword };
