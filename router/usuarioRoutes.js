@@ -1,6 +1,5 @@
 import express from 'express';
 import {
-  formularioLogin,
   formularioRegistro,
   formularioResetPassword,
   resetPassword,
@@ -10,11 +9,14 @@ import {
   nuevoPassword,
 } from '../controllers/usuarioController.js';
 
+import { formularioLogin, autenticar } from '../controllers/usuarioLogin.js';
+
 const router = express.Router();
 
 // * router.get('ruta de la pagina', funcion a ejecutar en esa pagina)
 
 router.get('/login', formularioLogin);
+router.post('/login', autenticar);
 
 router.get('/registro', formularioRegistro);
 router.post('/registro', registrar);

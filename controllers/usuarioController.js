@@ -4,13 +4,6 @@ import Usuario from '../models/Usuario.js';
 import { generarId } from '../helpers/tokens.js';
 import { emailRegistro, emailOlvidePassword } from '../helpers/emails.js';
 
-const formularioLogin = (req, res) => {
-  res.render('auth/login', {
-    pagina: 'Login',
-    top: 'Iniciar Sesion',
-  });
-};
-
 const formularioRegistro = (req, res) => {
   console.log('aqui toy');
   res.render('auth/registro', {
@@ -281,7 +274,6 @@ const nuevoPassword = async (req, res) => {
   });
 };
 export {
-  formularioLogin,
   registrar,
   formularioRegistro,
   comprobar,
