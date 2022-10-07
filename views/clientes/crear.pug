@@ -1,0 +1,46 @@
+extends ../layout/index
+
+block contenido
+    div.py-1
+    h2.text-center.text-2xl.font-bold=top
+
+    div(class="bg-white shadow py-8 px-4 rounded mx-auto max-w-4xl my-10 md:px-10")
+        form.space-y-8
+            div.space-y-5.t
+                h3.text-lg.leading-6.font-medium.text-gray-900.text-center Informacion general del usuario
+
+                div(class="md:flex md:gap-4 space-y-2 md:space-y-0")
+                    div(class="md:w-1/3")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="nombre") Nombre
+                        input#nombre.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Nombre" type="text" name="nombre" value= usuario ? usuario.nombre : '')
+                    div(class="md:w-1/3")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="email") Email
+                        input#email.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Correo Electrónico " type="email" name="email" value=usuario ? usuario.email : '')
+                    div(class="md:w-1/3")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="tel") teléfono
+                        input#tel.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Teléfono" type="number" name="tel" value= usuario ? usuario.nombre : '')
+                div(class="md:flex md:gap-4 space-y-2 md:space-y-0")
+                    div(class="md:w-1/3")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="id") Identificacion
+                        input#id.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Identidad Sin Guiones" type="number" name="id" value= usuario ? usuario.nombre : '')
+                    div(class="md:w-1/3")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="colonia") Colonia
+                        select#colonia.w-full.px-3.py-2.border.border-gray-300.rounded-md.text-black(name="colonia")
+                            option(value="") - Seleccione la colonia
+                                each col in colonias
+                                    option(value=col)
+                    div(class="md:w-1/3")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="rol") Tipo de Usuario
+                        select#rol.w-full.px-3.py-2.border.border-gray-300.rounded-md(name="rol")
+                            option(value="") - Seleccione el rol
+                div(class="md:flex md:gap-4 space-y-2 md:space-y-0")
+                    div(class="md:w-1/2")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="password") Password
+                        input#password.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Contraseña" type="password" name="password")
+                    div(class="md:w-1/2")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="rep_pass") Repetir Password
+                        input#rep_pass.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Repetir Contraseña" type="password" name="rep_pass")
+                div(class="md:flex md:gap-4 space-y-2 md:space-y-0")
+                    div(class="md:w-full")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold.text-center(for="direccion") dirección
+                        input#direccion.w-full.px-8.py-10.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Dirección del inquilino" type="text" name="direccion" value= usuario ? usuario.nombre : '')
