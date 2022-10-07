@@ -75,6 +75,15 @@ const autenticar = async (req, res) => {
   // AUTENTICAMOS AL USUARIO
   const token = generarJWT(usuario.id);
   console.log(token);
+
+  // ALMACENAOS EL JWT EN UNA COOKIE
+
+  return res
+    .cookie('_token', token, {
+      httpOnly: true,
+      // secure: true
+    })
+    .redirect('/usuarios');
 };
 
 export { formularioLogin, autenticar };
