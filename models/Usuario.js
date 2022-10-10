@@ -7,7 +7,7 @@ import db from '../config/db.js';
 name en PUG */
 
 const Usuario = db.define(
-  'usuarios',
+  'admin',
   {
     nombre: {
       type: DataTypes.STRING,
