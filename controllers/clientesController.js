@@ -1,7 +1,7 @@
 import { check, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import Clientes from '../models/Clientes.js';
-import Swal from 'sweetalert2';
+import Usuario from '../models/Usuario.js';
 
 const admin = (req, res) => {
   res.render('clientes/admin', {
@@ -12,7 +12,7 @@ const admin = (req, res) => {
 };
 
 // FORMULARIO PARA AGREGAR USUARIOS
-let pituitaria = ['La Trinidad'];
+let pituitaria = ['La Trinidad', 'La Lima'];
 const agregarUsuarios = (req, res) => {
   res.render('clientes/crear', {
     pagina: 'Agregar Usuarios',
@@ -31,16 +31,15 @@ const registrarNuevoUsuario = async (req, res) => {
     .withMessage('El nombre no puede ir vacio')
     .run(req);
   await check('email')
-    .notEmpty()
-    .withMessage('Por favor ingrese un correo electrónico valido')
     .isEmail()
+    .withMessage('Por favor ingrese un correo electrónico valido')
     .run(req);
   await check('tel')
-    .notEmpty()
+    .isNumeric()
     .withMessage('Por favor ingrese solamente números para el telefono')
     .run(req);
   await check('dni')
-    .notEmpty()
+    .isNumeric()
     .withMessage('Por favor ingrese solamente números para el DNI')
     .run(req);
   await check('colonia')
@@ -61,10 +60,41 @@ const registrarNuevoUsuario = async (req, res) => {
     .run(req);
   await check('direccion')
     .notEmpty()
-    .withMessage('Seleccione un rol para el usuario')
+    .withMessage('Ingrese una dirección')
     .run(req);
 
   let resultado = validationResult(req);
+
+  // DESTRUCTURACION DE DATOS
+
+  const { nombre, email, tel, dni, direccion, password } = req.body;
+
+  //VERIFICAR USUARIOS DUPLICADOS
+
+  const existeUsuario = await Clientes.findOne({
+    where: { email },
+  });
+  const existeAdmin = await Usuario.findOne({
+    where: { email },
+  });
+
+  if (existeUsuario || existeAdmin) {
+    return res.render('clientes/crear', {
+      pagina: 'Agregar Usuarios',
+      top: 'Agregar Nuevo Usuario',
+      barra: true,
+      colonias: pituitaria,
+      roles: ['administrador', 'usuario', 'guardia'],
+      errores: [{ msg: 'El usuario ya existe' }],
+      usuarioNuevo: {
+        nombre,
+        email,
+        tel,
+        dni,
+        direccion,
+      },
+    });
+  }
 
   //VERIFICAMOS QUE EL RESULTADO DE ERRORES ESTE VACIO
 
@@ -78,10 +108,15 @@ const registrarNuevoUsuario = async (req, res) => {
       colonias: pituitaria,
       roles: ['administrador', 'usuario', 'guardia'],
       errores: resultado.array(),
+      usuarioNuevo: {
+        nombre,
+        email,
+        tel,
+        dni,
+        direccion,
+      },
     });
   }
-
-  // res.json(resultado.array());
 
   //* REGISTRAR NUEVO USUARIO
 
