@@ -15,20 +15,20 @@ block contenido
                 div(class="md:grid md:gap-4 space-y-2 md:space-y-0 text-center")
                     div(class="md:w-full")
                         label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="departamento") Departamento
-                        select#departamento.w-full.px-3.py-2.border.border-gray-300.rounded-md.text-center(name="departamento" onchange="myFunction()")
+                        select#departamento.w-full.px-3.py-2.border.border-gray-300.rounded-md.text-center(name="departamento")
                             option(value="") - Seleccione un departamento
                             each dept in dep
                                 option(value=dept.id)=dept.nombre
                     div(class="md:w-full")
                         label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="municipio") Municipio
-                        select#municipio.w-full.px-3.py-2.border.border-gray-300.rounded-md.text-center(name="municipio" onchange="myFunction()")
+                        select#municipio.w-full.px-3.py-2.border.border-gray-300.rounded-md.text-center(name="municipio")
                             option(value="") - Seleccione un municipio
                             each m in mun
-                                if m.deptN == 
+                                if m.deptN == 1
                                     option(value=m.deptN)=m.nombre
                     div(class="md:w-full")
-                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="colonia") Colonia
-                        select#colonia.w-full.px-3.py-2.border.border-gray-300.rounded-md.text-center(name="colonia")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold.text-center(for="nombre") dirección
+                        input#nombre.w-full.px-8.py-10.border.border-gray-300.rounded-md.placeholder-gray-500(placeholder="Dirección del inquilino" type="text" name="nombre")
                 div(class="md:flex-row-4 gap-2").flex
                     input(class="content-center w-1/2 bg-indigo-400 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-lg" type="submit" value="Agregar Colonia")
                     input(class="content-center w-1/2 bg-red-400 hover:bg-red-700 text-white font-bold py-3 cursor-pointer rounded-lg" type="reset" value="Cancelar")

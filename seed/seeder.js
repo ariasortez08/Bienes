@@ -1,8 +1,7 @@
 import { exit } from 'node:process';
 import departamentos from './departamentos.js';
 import municipios from './municipios.js';
-import Departamentos from '../models/Departamentos.js';
-import Municipios from '../models/Municipios.js';
+import { Departamentos, Municipios } from '../models/index.js';
 import db from '../config/db.js';
 
 const importarDepartamentos = async () => {

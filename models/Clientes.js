@@ -21,11 +21,11 @@ const Clientes = db.define(
       allowNull: false,
     },
     tel: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: false,
     },
     dni: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: false,
     },
     password: {
