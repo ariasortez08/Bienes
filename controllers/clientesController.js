@@ -67,7 +67,8 @@ const registrarNuevoUsuario = async (req, res) => {
 
   // DESTRUCTURACION DE DATOS
 
-  const { nombre, email, tel, dni, direccion, password } = req.body;
+  const { nombre, email, tel, dni, direccion, rol, password, colonia } =
+    req.body;
 
   //VERIFICAR USUARIOS DUPLICADOS
 
@@ -99,8 +100,6 @@ const registrarNuevoUsuario = async (req, res) => {
   //VERIFICAMOS QUE EL RESULTADO DE ERRORES ESTE VACIO
 
   if (!resultado.isEmpty()) {
-    console.log(resultado);
-
     return res.render('clientes/crear', {
       pagina: 'Agregar Usuarios',
       top: 'Agregar Nuevo Usuario',
@@ -120,9 +119,18 @@ const registrarNuevoUsuario = async (req, res) => {
 
   //* REGISTRAR NUEVO USUARIO
 
-  const nuevo = await Clientes.create(req.body);
+  await Clientes.create({
+    nombre,
+    email,
+    password,
+    dni,
+    tel,
+    rol,
+    colonia,
+    direccion,
+  });
 
-  res.json(nuevo);
+  // res.json(nuevo);
 };
 
 export { admin, agregarUsuarios, registrarNuevoUsuario };

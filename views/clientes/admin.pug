@@ -2,8 +2,10 @@ extends ../layout/index
 
 block contenido
     div.py-1
-    h1.text-4xl.my-10.font-bold.text-center Bienes
+    h1.text-4xl.my-5.font-bold.text-center Bienes
         span.font-normal Raices
-    h2.text-center.text-2xl.font-bold=top
+    h2.text-center.text-2xl.font-bold.py-1=top
+    div(class="md:flex-auto md:gap-4 space-y-2 space-x-4 md:space-y-")
+        a(href='/clientes/crear' class="bg-indigo-400 hover:bg-indigo-600 rounded-md py-4 px-4 text-md text-white font-bold text-center inline-block w-full sm:w-auto") Agregar Nuevo Cliente
+        a(href='/clientes/agregarColonias' class="bg-indigo-400 hover:bg-indigo-600 rounded-md py-4 px-4 text-md text-white font-bold text-center inline-block w-full sm:w-auto") Agregar Nueva Colonia
 
-    a(href='/clientes/crear' class="bg-indigo-400 hover:bg-indigo-600 rounded-md py-4 px-4 text-md text-white font-bold text-center inline-block w-full sm:w-auto") Agregar Nuevo Cliente

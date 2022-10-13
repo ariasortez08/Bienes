@@ -1,0 +1,34 @@
+extends ../layout/index
+
+block contenido
+    div.py-1
+    h2.text-center.text-2xl.font-bold=top
+    if errores 
+        div(class="max-w-md mx-auto my-4") 
+            each error in errores
+                p.bg-red-600.text-white.uppercase.text-xs.text-center.p-2.mb-1.font-bold=error.msg
+
+    div(class="bg-white shadow py-8 px-4 rounded mx-auto max-w-2xl my-10 md:px-8")
+        form.space-y-8(method="POST" action="/clientes/agregarColonias" noValidate)
+            div.space-y-5.t
+                h3.text-lg.leading-6.font-medium.text-gray-900.text-center Agregar Nueva Colonia
+                div(class="md:grid md:gap-4 space-y-2 md:space-y-0 text-center")
+                    div(class="md:w-full")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="departamento") Departamento
+                        select#departamento.w-full.px-3.py-2.border.border-gray-300.rounded-md.text-center(name="departamento" onchange="myFunction()")
+                            option(value="") - Seleccione un departamento
+                            each dept in dep
+                                option(value=dept.id)=dept.nombre
+                    div(class="md:w-full")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="municipio") Municipio
+                        select#municipio.w-full.px-3.py-2.border.border-gray-300.rounded-md.text-center(name="municipio" onchange="myFunction()")
+                            option(value="") - Seleccione un municipio
+                            each m in mun
+                                if m.deptN == 
+                                    option(value=m.deptN)=m.nombre
+                    div(class="md:w-full")
+                        label.block.text-sm.uppercase.text-gray-400.mb-2.ml-2.font-bold(for="colonia") Colonia
+                        select#colonia.w-full.px-3.py-2.border.border-gray-300.rounded-md.text-center(name="colonia")
+                div(class="md:flex-row-4 gap-2").flex
+                    input(class="content-center w-1/2 bg-indigo-400 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-lg" type="submit" value="Agregar Colonia")
+                    input(class="content-center w-1/2 bg-red-400 hover:bg-red-700 text-white font-bold py-3 cursor-pointer rounded-lg" type="reset" value="Cancelar")
